@@ -95,6 +95,49 @@ describe("POST /payments (integration)", () => {
     expect(res.body.code).toBe("INVALID_AMOUNT");
   });
 
+  it("allows exact full settlement — outstanding becomes 0", async () => {
+    await seedPolicy();
+
+    const res = await request(app).post("/payments").send({
+      policy_id: 1,
+      amount: 11800,
+      payment_date: "2026-09-06",
+    });
+
+    expect(res.status).toBe(201);
+    expect(res.body.data.outstanding_after_payment).toBe(0);
+
+    const [entries] = await query(
+      `SELECT a.name, le.debit, le.credit
+         FROM ledger_entries le
+         JOIN accounts a ON a.id = le.account_id
+         JOIN policy_transactions pt ON pt.id = le.transaction_id
+        WHERE pt.policy_id = 1 AND pt.type = 'PAYMENT'`,
+    );
+    const debitSum = entries.reduce((s, e) => s + Number(e.debit), 0);
+    const creditSum = entries.reduce((s, e) => s + Number(e.credit), 0);
+    expect(debitSum).toBe(11800);
+    expect(creditSum).toBe(11800);
+  });
+
+  it("rejects second payment after full settlement", async () => {
+    await seedPolicy();
+    await request(app).post("/payments").send({
+      policy_id: 1,
+      amount: 11800,
+      payment_date: "2026-09-06",
+    });
+
+    const res = await request(app).post("/payments").send({
+      policy_id: 1,
+      amount: 1,
+      payment_date: "2026-09-07",
+    });
+
+    expect(res.status).toBe(422);
+    expect(res.body.code).toBe("OVERPAYMENT");
+  });
+
   it("rolls back everything when ledger insert fails", async () => {
     await seedPolicy();
 
