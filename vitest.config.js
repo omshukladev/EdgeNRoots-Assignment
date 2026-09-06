@@ -14,6 +14,9 @@ export default defineConfig({
           name: "integration",
           include: ["tests/integration/**/*.test.js"],
           setupFiles: ["tests/setup.integration.js"],
+          // All integration tests share one MySQL database — files must run
+          // one at a time so their TRUNCATE/insert fixtures don't collide.
+          fileParallelism: false,
         },
       },
     ],
