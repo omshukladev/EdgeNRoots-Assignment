@@ -5,6 +5,7 @@ import { ApiError, globalLimiter, requestLogger, logError, logger } from "./util
 import healthRoutes from "./routes/healthRoutes.js";
 import customerRoutes from "./routes/customerRoutes.js";
 import policyRoutes from "./routes/policyRoutes.js";
+import paymentRoutes from "./routes/paymentRoutes.js";
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(globalLimiter);
 app.use(healthRoutes);
 app.use(customerRoutes);
 app.use(policyRoutes);
+app.use(paymentRoutes);
 
 app.use((req, res) => {
   throw new ApiError(404, `Route ${req.method} ${req.originalUrl} not found`, [], "NOT_FOUND");
