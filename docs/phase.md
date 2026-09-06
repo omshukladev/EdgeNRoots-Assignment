@@ -20,25 +20,28 @@
 
 ---
 
-## Phase 1 — Project Scaffolding
+## Phase 1 — Project Scaffolding ✅ (completed 2026-09-06)
 
 **Goal:** Runnable empty app + database up in Docker.
 
-**Deliverables:**
-- package.json + npm scripts (dev, start, db:init, db:seed, test, test:unit, test:integration)
-- .env.example + .gitignore
-- docker-compose.yml (MySQL 8.4, mounts db/ into /docker-entrypoint-initdb.d, healthcheck)
-- db/schema.sql (6 tables, PK/FK/indexes/timestamps)
-- db/seed.sql (accounts + sample customers + sample data)
-- src/config/db.js (mysql2/promise pool)
-- src/app.js + src/server.js (health route only)
+**Deliverables (done):**
+- docker-compose.yml (MySQL 8.4, init mount of db/, healthcheck, named volume)
+- db/schema.sql (6 tables, PK/FK/indexes/timestamps, CHECK constraint)
+- db/seed.sql (accounts + worked example: policy 11,800 + payment 5,900)
+- db/test.sql (insurance_test DB for integration tests)
+- src/config/db.js (mysql2/promise pools: db + testDb)
+- src/app.js (express, morgan→winston, requestLogger, globalLimiter, /health, 404 + error middleware)
+- src/server.js (loadEnv + listen)
+- vitest.config.js (Vitest 5, v8 coverage)
+- tests/unit/gst.test.js + ledger.test.js (smoke)
+- tests/integration/health.test.js (auto-skips if MySQL is down)
 
-**Commands for user (agent provides, user runs):**
-- `docker compose up -d`
-- `npm install`
-- `npm run db:init` (if schema not auto-loaded)
+**Commands for user to run:**
+- `docker compose up -d` — starts MySQL (auto-creates insurance_db + insurance_test + seed)
+- `npm run dev` — starts server; test `curl http://localhost:3000/health`
+- `npm test` — runs all tests
 
-**Approval gate:** `GET /health` responds and MySQL is reachable.
+**Approval gate:** health endpoint returns 200, npm test green.
 
 ---
 
@@ -136,7 +139,7 @@
 **Goal:** Submission-ready package.
 
 **Deliverables:**
-- postman/EdgeNRoots_Assignment.postman_collection.json (all 6 endpoints + error examples)
+- postman/EdgeNRoots_Assignment.postman_collection.json ✅ (created in Phase 1 — all 6 endpoints + health + error examples; re-export with real responses after all endpoints exist)
 - README.md: setup, DB design, accounting logic, commands, test instructions
 - Final self-review against assignment checklist
 - Final git commit commands handed to user

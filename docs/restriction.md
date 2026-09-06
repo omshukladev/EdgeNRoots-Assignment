@@ -15,7 +15,7 @@ These rules are non-negotiable. The agent must follow them in every phase.
 | Node.js | 24.x LTS | Current LTS line |
 | Express | 5.2.x | Latest major (async errors built in) |
 | mysql2 | 3.24.x | Promise pool + prepared statements |
-| Vitest | 4.1.x (stable) | Latest stable (5.0 is still RC) |
+| Vitest | 5.0.x (stable) | Went stable 2026-09-06 — no more 4.1.x |
 | MySQL (Docker) | 8.4 LTS | Oracle's LTS release |
 | supertest | 7.2.x | HTTP integration tests |
 | dotenv | 17.4.x | Env config |
@@ -38,9 +38,9 @@ These rules are non-negotiable. The agent must follow them in every phase.
 ## 3. Git — User Commits
 
 - The agent never stages, commits, or pushes.
-- After each phase, the agent hands over a **complete git commit command**
-  (with a descriptive message, no co-author trailers — the user's assignment,
-  their commits). User pastes and runs it.
+- After each phase, the agent hands over simple git commands: `git add .` +
+  `git commit -m "..."` (no co-author trailers, no heredocs — the user's
+  assignment, their commits). User pastes and runs them.
 
 ## 4. Architecture & Code Rules
 

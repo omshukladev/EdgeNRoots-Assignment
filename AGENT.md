@@ -67,15 +67,11 @@ Read it first, then read the docs/ folder. Follow it in every session, every pha
 
 ## 8. Git Commit Template
 
-After each phase, hand the user a commit command in this shape (user pastes it):
+After each phase, hand the user simple one-line commands in this shape (user pastes them):
 
 ```bash
-git add -A
-git commit -F - <<'EOF'
-<phase>: <what was done>
-
-<bullet summary of changes>
-EOF
+git add .
+git commit -m "<phase>: <what was done>"
 ```
 
 No co-author trailers — this is the user's assignment, commits are theirs alone.

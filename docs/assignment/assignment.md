@@ -32,7 +32,7 @@ in 2 days. The company wants to see:
 - Work is split into 9 phases (see `docs/phase.md`). Nothing is done in one shot.
 - After every phase: explanation of what changed → user approval → session log
   update → git commit command handed to the user.
-- Every piece of business logic gets unit or integration tests (Vitest 4.x).
+- Every piece of business logic gets unit or integration tests (Vitest 5.x).
 - MySQL runs in Docker (8.4 LTS); raw SQL only, no ORM.
 
 ### The three hard problems this assignment tests
@@ -69,7 +69,7 @@ complete and the ledger stays balanced at every point in time.
 - **mysql2/promise** — official-ish driver, prepared statements, promise pools.
 - **Raw SQL** — the assignment wants SQL demonstrated; an ORM would hide it.
 - **Express 5** — latest major; async handlers auto-forward errors.
-- **Vitest 4** — fast, modern, first-class JS support; supertest for HTTP tests.
+- **Vitest 5** — fast, modern, first-class JS support; supertest for HTTP tests.
 - **MySQL 8.4 LTS in Docker** — zero-install DB for the reviewer; `docker compose up`
   provisions schema + seed automatically.
 - **node --watch** — dev server without nodemon dependency.

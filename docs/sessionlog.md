@@ -37,3 +37,18 @@
 - **Files:** AGENT.md, docs/restriction.md, docs/sessionlog.md
 - **Next:** User runs the corrected commit + install commands; then Phase 1 (scaffolding).
 
+### [2026-09-06 13:00] — Phase 1 executed: Docker + server skeleton + tests
+- **Done:** Created docker-compose.yml (MySQL 8.4, init mount, healthcheck, named volume), db/schema.sql (6 tables with PK/FK/indexes/timestamps + CHECK), db/seed.sql (accounts + worked example), db/test.sql (insurance_test DB). Created src/config/db.js (dual pools), src/app.js (express + morgan→winston + requestLogger + globalLimiter + /health + 404/error middleware), src/server.js. Vitest 5 config + smoke tests (gst, ledger, health with auto-skip). Verified installed versions (all latest): express 5.2.1, mysql2 3.24.3, dotenv 17.4.2, winston 3.19.0, morgan 1.12.0, express-rate-limit 8.7.0, vitest 5.0.0 (stable today), supertest 7.2.2. Node 24.6.0, Docker 28.5.2, Compose v2.40.3 confirmed. Syntax-checked all new files.
+- **Files:** docker-compose.yml, db/schema.sql, db/seed.sql, db/test.sql, src/config/db.js, src/app.js, src/server.js, vitest.config.js, tests/unit/gst.test.js, tests/unit/ledger.test.js, tests/integration/health.test.js, docs/phase.md, docs/architecture.md, docs/restriction.md
+- **Next:** User runs: docker compose up -d → npm run dev → curl health → npm test. Approval gate: health 200 + tests green.
+
+### [2026-09-06 13:09] — Postman collection + cmd.md created; explained testing
+- **Done:** Created postman/EdgeNRoots_Assignment.postman_collection.json (health + all 6 assignment endpoints + error-case examples, baseUrl variable). Created docs/cmd.md (every command with explanation: git, npm, docker, env, workflows, reset). Explained to user why unit+integration tests are simple to explain in interviews (unit = math in isolation, integration = full API→DB flow incl. rollback). User's test run: 9/9 passed. Docker container healthy, server running.
+- **Files:** postman/EdgeNRoots_Assignment.postman_collection.json, docs/cmd.md, docs/assignment/assignment.md (Vitest 4→5), docs/phase.md (Postman collection marked created), docs/sessionlog.md
+- **Next:** User commits Phase 1. Then Phase 3: Customers module (repository → service → controller → route → tests).
+
+### [2026-09-06 13:18] — Git commit style simplified per user preference
+- **Done:** User prefers `git add .` + `git commit -m "..."` instead of `git add -A` + heredoc multi-line messages. Updated AGENT.md §8 and restriction.md §3 to match. Also clarified to user that the winston error log line in test output is the app's intended 404-test logging, not a failure (9/9 tests pass).
+- **Files:** AGENT.md, docs/restriction.md, docs/sessionlog.md
+- **Next:** User commits Phase 1 with the simple style; then Phase 3: Customers module.
+

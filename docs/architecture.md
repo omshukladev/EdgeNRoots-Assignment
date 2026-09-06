@@ -9,7 +9,7 @@
 | Web framework | Express.js | 5.2.x | Latest major, async error handling built-in |
 | DB driver | mysql2 | 3.24.x | Promise-based pool, prepared statements |
 | Database | MySQL | 8.4 LTS (Docker) | Official `mysql:8.4` image |
-| Testing | Vitest | 4.1.x | Unit + integration |
+| Testing | Vitest | 5.0.x | Unit + integration (5.0 went stable 2026-09-06) |
 | HTTP testing | supertest | 7.2.x | For integration tests |
 | Dev server | node --watch | Node 24 built-in | No nodemon needed |
 | Env config | dotenv | 17.4.x | .env management |
@@ -31,6 +31,7 @@ EdgeNRoots-Assignment/
 │   ├── flow.md               # Data flows (policy, payment, ledger)
 │   ├── api.md                # API contract (endpoints, payloads, errors)
 │   ├── schema.md             # DB design rationale
+│   ├── cmd.md                # All commands with explanations
 │   └── assignment/
 │       └── assignment.md     # Assignment summary & approach
 ├── src/
@@ -45,7 +46,8 @@ EdgeNRoots-Assignment/
 │   └── server.js             # Entry point: starts server on PORT
 ├── db/
 │   ├── schema.sql            # DDL: 6 tables, FKs, indexes, timestamps
-│   └── seed.sql              # Sample accounts + sample customers/policies/payments
+│   ├── seed.sql              # Sample accounts + sample customers/policies/payments
+│   └── test.sql              # insurance_test DB (integration tests)
 ├── tests/
 │   ├── unit/                 # Pure logic tests (no DB)
 │   └── integration/          # Full API → DB tests (supertest + real MySQL)
