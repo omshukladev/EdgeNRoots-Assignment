@@ -1,0 +1,31 @@
+{
+  "name": "insurance-accounting-module",
+  "version": "1.0.0",
+  "description": "Insurance Policy & Accounting Module - backend intern assignment (Node.js, Express, MySQL, double-entry ledger)",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "test": "vitest run",
+    "test:unit": "vitest run tests/unit",
+    "test:integration": "vitest run tests/integration",
+    "test:coverage": "vitest run --coverage"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.7.0",
+    "morgan": "^1.12.0",
+    "mysql2": "^3.24.3",
+    "winston": "^3.19.0"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^5.0.0",
+    "supertest": "^7.2.2",
+    "vitest": "^5.0.0"
+  }
+}
