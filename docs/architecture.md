@@ -48,6 +48,8 @@ EdgeNRoots-Assignment/
 │   ├── schema.sql            # DDL: 6 tables, FKs, indexes, timestamps
 │   ├── seed.sql              # Sample accounts + sample customers/policies/payments
 │   └── test.sql              # insurance_test DB (integration tests)
+├── scripts/
+│   └── db.js                 # db:migrate / db:seed / db:fresh (no Docker restart)
 ├── tests/
 │   ├── unit/                 # Pure logic tests (no DB)
 │   └── integration/          # Full API → DB tests (supertest + real MySQL)

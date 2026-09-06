@@ -7,6 +7,9 @@
   "scripts": {
     "dev": "node --watch src/server.js",
     "start": "node src/server.js",
+    "db:migrate": "node scripts/db.js migrate",
+    "db:seed": "node scripts/db.js seed",
+    "db:fresh": "node scripts/db.js fresh",
     "test": "vitest run",
     "test:unit": "vitest run tests/unit",
     "test:integration": "vitest run tests/integration",

@@ -1,10 +1,9 @@
--- Test database: same chart of accounts, no business rows.
--- Business data is created per-test and truncated in setup.
+-- Test database seed: chart of accounts only (no business rows).
+-- Schema for insurance_test is applied by scripts/db.js (migrate/fresh) —
+-- this file runs AFTER schema.sql and only adds the accounts.
+-- Business data is created per-test and truncated in test setup.
 
-CREATE DATABASE IF NOT EXISTS insurance_test CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE insurance_test;
-
-SOURCE /docker-entrypoint-initdb.d/schema.sql;
 
 INSERT INTO accounts (code, name, type) VALUES
   ('1100', 'Customer Receivable', 'ASSET'),

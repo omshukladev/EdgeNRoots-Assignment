@@ -33,6 +33,7 @@
 - src/app.js (express, morgan→winston, requestLogger, globalLimiter, 404 + error middleware)
 - src/server.js (loadEnv + listen)
 - HEALTH LAYERING FIX (addendum): healthRoutes.js → healthController.js → healthService.js → healthRepository.js; app.js mounts route, zero inline SQL — assignment §9 compliance
+- scripts/db.js + npm run db:migrate / db:seed / db:fresh — schema/data changes WITHOUT docker compose down (uses DB_ROOT_USER)
 - vitest.config.js (Vitest 5, v8 coverage)
 - tests/unit/gst.test.js + ledger.test.js (smoke)
 - tests/integration/health.test.js (auto-skips if MySQL is down)

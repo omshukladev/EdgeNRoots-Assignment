@@ -57,3 +57,13 @@
 - **Files:** src/repositories/healthRepository.js, src/services/healthService.js, src/controllers/healthController.js, src/routes/healthRoutes.js (new), src/app.js, db/seed.sql, docs/phase.md, docs/sessionlog.md
 - **Next:** User reseeds: docker compose down -v && docker compose up -d; verify health in Postman; npm test; commit. Then Phase 3: Customers module.
 
+### [2026-09-06 13:30] — DB migration/seed/fresh scripts added
+- **Done:** Created scripts/db.js with migrate/seed/fresh commands (connects as MySQL root from .env, no Docker restart needed). npm scripts added: db:migrate (create DBs + apply schema to both DBs, idempotent), db:seed (reset main + sample data), db:fresh (reset both: main schema+seed, test schema+accounts). Added DB_ROOT_USER/DB_ROOT_PASSWORD to .env and .env.example. Documented DB connection details for user's VS Code DB extension (host 127.0.0.1:3306, insurance_user/insurance_pass, insurance_db; root/rootpass for admin).
+- **Files:** scripts/db.js (new), package.json, .env, .env.example, docs/cmd.md, docs/architecture.md, docs/phase.md, docs/sessionlog.md
+- **Next:** User runs npm run db:fresh to reseed; commit; Phase 3: Customers module.
+
+### [2026-09-06 13:32] — Fixed test.sql SOURCE syntax error
+- **Done:** db:fresh failed on test.sql because SOURCE is a mysql CLI-only command, invalid over programmatic connection. Rewrote db/test.sql to only INSERT the 4 accounts (schema is already applied by scripts/db.js before this file runs).
+- **Files:** db/test.sql, docs/sessionlog.md
+- **Next:** User re-runs npm run db:fresh; then Postman health + GET policies checks; commit; Phase 3: Customers.
+
