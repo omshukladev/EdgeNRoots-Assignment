@@ -52,3 +52,8 @@
 - **Files:** AGENT.md, docs/restriction.md, docs/sessionlog.md
 - **Next:** User commits Phase 1 with the simple style; then Phase 3: Customers module.
 
+### [2026-09-06 13:25] — Assignment compliance audit: health layering + bulk seed
+- **Done:** Re-read assignment (now at docs/backend_intern_insurance_accounting_assignment.md). Fixed two compliance gaps: (1) /health now follows layered structure — new healthRoutes.js → healthController.js → healthService.js → healthRepository.js; app.js mounts route, inline SQL removed (assignment §9). (2) db/seed.sql rewritten with bulk sample data: 5 customers, 6 policies with GST rates 0/5/12/18/28%, partial payment, full settlement, unsettled policies, REVERSAL + corrected payment (insert-only demo). All 12 transactions balance. Confirmed Postman collection already has Health → GET /health ({{baseUrl}}/health).
+- **Files:** src/repositories/healthRepository.js, src/services/healthService.js, src/controllers/healthController.js, src/routes/healthRoutes.js (new), src/app.js, db/seed.sql, docs/phase.md, docs/sessionlog.md
+- **Next:** User reseeds: docker compose down -v && docker compose up -d; verify health in Postman; npm test; commit. Then Phase 3: Customers module.
+

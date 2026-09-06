@@ -27,18 +27,19 @@
 **Deliverables (done):**
 - docker-compose.yml (MySQL 8.4, init mount of db/, healthcheck, named volume)
 - db/schema.sql (6 tables, PK/FK/indexes/timestamps, CHECK constraint)
-- db/seed.sql (accounts + worked example: policy 11,800 + payment 5,900)
+- db/seed.sql — BULK sample data: 5 customers, 6 policies (GST 0/5/12/18/28%), partial + full payments, unsettled policies, REVERSAL + corrected payment (insert-only demo)
 - db/test.sql (insurance_test DB for integration tests)
 - src/config/db.js (mysql2/promise pools: db + testDb)
-- src/app.js (express, morgan→winston, requestLogger, globalLimiter, /health, 404 + error middleware)
+- src/app.js (express, morgan→winston, requestLogger, globalLimiter, 404 + error middleware)
 - src/server.js (loadEnv + listen)
+- HEALTH LAYERING FIX (addendum): healthRoutes.js → healthController.js → healthService.js → healthRepository.js; app.js mounts route, zero inline SQL — assignment §9 compliance
 - vitest.config.js (Vitest 5, v8 coverage)
 - tests/unit/gst.test.js + ledger.test.js (smoke)
 - tests/integration/health.test.js (auto-skips if MySQL is down)
 
 **Commands for user to run:**
-- `docker compose up -d` — starts MySQL (auto-creates insurance_db + insurance_test + seed)
-- `npm run dev` — starts server; test `curl http://localhost:3000/health`
+- `docker compose down -v && docker compose up -d` — reseed (init scripts run only on fresh volume)
+- `npm run dev` — starts server; health via Postman: Health → GET /health
 - `npm test` — runs all tests
 
 **Approval gate:** health endpoint returns 200, npm test green.

@@ -1,8 +1,8 @@
 import "dotenv/config";
 import express from "express";
 import morgan from "morgan";
-import { ApiError, sendSuccess, globalLimiter, requestLogger, logError, logger } from "./utils/index.js";
-import { db } from "./config/db.js";
+import { ApiError, globalLimiter, requestLogger, logError, logger } from "./utils/index.js";
+import healthRoutes from "./routes/healthRoutes.js";
 
 const app = express();
 
@@ -16,10 +16,7 @@ if (process.env.NODE_ENV === "development") {
 }
 app.use(globalLimiter);
 
-app.get("/health", async (req, res) => {
-  await db.query("SELECT 1");
-  return sendSuccess(res, { db: "connected" }, "OK");
-});
+app.use(healthRoutes);
 
 app.use((req, res) => {
   throw new ApiError(404, `Route ${req.method} ${req.originalUrl} not found`, [], "NOT_FOUND");
