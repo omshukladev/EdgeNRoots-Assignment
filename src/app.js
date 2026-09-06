@@ -3,6 +3,7 @@ import express from "express";
 import morgan from "morgan";
 import { ApiError, globalLimiter, requestLogger, logError, logger } from "./utils/index.js";
 import healthRoutes from "./routes/healthRoutes.js";
+import customerRoutes from "./routes/customerRoutes.js";
 
 const app = express();
 
@@ -17,6 +18,7 @@ if (process.env.NODE_ENV === "development") {
 app.use(globalLimiter);
 
 app.use(healthRoutes);
+app.use(customerRoutes);
 
 app.use((req, res) => {
   throw new ApiError(404, `Route ${req.method} ${req.originalUrl} not found`, [], "NOT_FOUND");

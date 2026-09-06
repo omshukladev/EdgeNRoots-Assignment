@@ -62,17 +62,20 @@
 
 ---
 
-## Phase 3 — Customers Module
+## Phase 3 — Customers Module ✅ (completed 2026-09-06)
 
 **Goal:** First vertical slice through all layers.
 
-**Deliverables:**
-- repository: insert, findById, findByEmail (duplicate check)
-- service: validation (name/email/phone), duplicate email rejection
-- controller + route: POST /customers
-- unit + integration tests
+**Deliverables (done):**
+- src/repositories/customerRepository.js — insert (returns fresh row), findByEmail, findById (raw SQL, parameterized)
+- src/services/customerService.js — validates name (≥2 chars), email format, phone (7-15 digits); duplicate email → ConflictError; trims + lowercases email
+- src/controllers/customerController.js — asyncHandler + sendSuccess(201)
+- src/routes/customerRoutes.js — POST /customers; mounted in app.js
+- Test infra: tests/helpers/db.js (test-DB truncate + account reseed), tests/setup.integration.js (DB_USE_TEST=true routes app SQL to insurance_test), vitest.config.js (unit + integration projects)
+- tests/unit/customerService.test.js (6 tests, mocked repo: success, duplicate, invalid email/name/phone, optional phone)
+- tests/integration/customers.test.js (4 tests, real MySQL: 201 + row exists, 409 duplicate, 422 invalid email, 422 missing name)
 
-**Approval gate:** POST /customers works end-to-end; duplicate email → 409.
+**Approval gate:** POST /customers works end-to-end in Postman; duplicate email → 409; npm test green.
 
 ---
 

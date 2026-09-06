@@ -2,8 +2,21 @@ import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
-    environment: "node",
-    include: ["tests/unit/**/*.test.js", "tests/integration/**/*.test.js"],
+    projects: [
+      {
+        test: {
+          name: "unit",
+          include: ["tests/unit/**/*.test.js"],
+        },
+      },
+      {
+        test: {
+          name: "integration",
+          include: ["tests/integration/**/*.test.js"],
+          setupFiles: ["tests/setup.integration.js"],
+        },
+      },
+    ],
     testTimeout: 15000,
     coverage: {
       provider: "v8",

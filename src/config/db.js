@@ -13,7 +13,11 @@ const createPool = (database) =>
     timezone: "Z",
   });
 
-const db = createPool(process.env.DB_NAME);
+// Integration tests set DB_USE_TEST=true (see tests/setup.integration.js)
+// so the app's repositories run against insurance_test.
+const USE_TEST_DB = process.env.DB_USE_TEST === "true";
+
+const db = createPool(USE_TEST_DB ? process.env.DB_NAME_TEST : process.env.DB_NAME);
 const testDb = createPool(process.env.DB_NAME_TEST);
 
 export { db, testDb, createPool };

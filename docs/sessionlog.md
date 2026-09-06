@@ -67,3 +67,13 @@
 - **Files:** db/test.sql, docs/sessionlog.md
 - **Next:** User re-runs npm run db:fresh; then Postman health + GET policies checks; commit; Phase 3: Customers.
 
+### [2026-09-06 13:42] — Phase 3 completed: Customers module (first vertical slice)
+- **Done:** Full layered slice: customerRepository.js (createCustomer returns fresh row, findByEmail, findById — parameterized raw SQL) → customerService.js (name/email/phone validation, duplicate email → ConflictError 409, trims + lowercases email) → customerController.js (asyncHandler + sendSuccess 201) → customerRoutes.js (POST /customers, mounted in app.js). Test infra: tests/helpers/db.js (truncate business tables + reseed accounts in insurance_test), tests/setup.integration.js (DB_USE_TEST=true routes app SQL to test DB), vitest.config.js (separate unit + integration projects). Tests: 6 unit (mocked repo) + 4 integration (real MySQL: 201, 409 duplicate, 422 invalid email, 422 missing name). All new files syntax-checked.
+- **Files:** src/repositories/customerRepository.js, src/services/customerService.js, src/controllers/customerController.js, src/routes/customerRoutes.js (new), src/app.js, src/config/db.js, vitest.config.js, tests/helpers/db.js, tests/setup.integration.js, tests/unit/customerService.test.js, tests/integration/customers.test.js (new), docs/phase.md, docs/sessionlog.md
+- **Next:** User runs npm test + Postman (POST /customers valid/duplicate/invalid). Commit. Then Phase 4: Policies + Ledger (POST /policies with double-entry).
+
+### [2026-09-06 13:50] — Fixed insurance_test access denied for app user
+- **Done:** Integration tests failed: insurance_user had no privileges on insurance_test (Docker's default init only grants the app user rights on the main DB, and the earlier db:fresh recreated the test DB, dropping grants). Added GRANT ALL ON insurance_test.* TO insurance_user to db/test.sql so both the Docker init path and scripts/db.js grant access when run as root. Fixed test.sql also now reruns accounts INSERT on fresh.
+- **Files:** db/test.sql, docs/sessionlog.md
+- **Next:** User runs npm run db:fresh (regrant), then npm test (integration should pass now). Commit. Then Phase 4: Policies + Ledger.
+
